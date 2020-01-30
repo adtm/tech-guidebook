@@ -63,3 +63,6 @@ which indicates that your changes are in the `working directory`. After `git che
 
 `git reset --hard <commit-hash>` would return to the commit of the specified hash and all that commit changes would be discarded. On a local branch `git reset --hard` removes all the files from `staging directory` and `working directory`.
 
+### `git revert`
+
+This command is for remote repository changes. For example, if you have pushed all your `Local Directory` changes to remote an want to undo without removing history. `git revert <commit-hash>` would create a new commit showing the removed changes on top the history. Thus not destroying any history.
