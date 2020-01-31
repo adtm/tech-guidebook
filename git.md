@@ -77,3 +77,21 @@ which indicates that your changes are in the `working directory`. After `git che
 ### `git revert`
 
 This command is for remote repository changes. For example, if you have pushed all your `Local Directory` changes to remote an want to undo without removing history. `git revert <commit-hash>` would create a new commit showing the removed changes on top the history. Thus not destroying any history.
+
+
+### `git clean` 
+
+Whereas `git checkout` and  `git reset` mainly worked on files in the `staging directory` (except `git reset --hard` and `git checkout .`). `git clean` is only for untracked files in your `working directory` to change. This command is reponsible for removing files from the `working directory`.
+By default it requires the `-f (force)` flag to execute.
+
+The main flags are:
+
+`-f (force)`. Have in mind that by default it will removes files but not directories and files within them.
+
+`-d (directories)`. This will delete all directories and files within those directories.
+
+`-n (dry run)`. Shows files which would be removed.
+
+`-i (interactive)`. This command will show the changes that will be executed and will allow to tell patterns by which files can be deleted. Starting an interactive shell.
+
+All of these flags can be combined, for example if you want to delete all directories & files and check the changes before executing, you can do `git clean -fdn`.
