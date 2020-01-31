@@ -9,6 +9,16 @@ When you `git clone` a project from a specific source like `GitHub`, the local c
     Remote Repository -> GitHub / GitLab
 ```
 
+### `remotes` 
+
+A `remote` is some repository on the internet, which hosts and stores your `git` project, f.e: `GitHub`. By default, when you create a new repository in `GitHub` you have add this `remote` to your project. Which is done with:
+
+```
+  git remote add origin <remote-url>
+```
+
+Have in mind the `origin` name. This is the default naming for your default remote repository. Meaning that when you operate on some of the commands like `git fetch`, it is really `git fetch origin`. A repository can have multiple remotes and they can be named differently, f.e: you can host your project in `GitHub` and in `BitBucket`. In this situation you would you have a different remote like `bitbucket` and be able to push to only that specific `remote` (`git push bitbucket master`)
+
 
 ### `git fetch vs git pull`
 
@@ -62,6 +72,7 @@ which indicates that your changes are in the `working directory`. After `git che
 `git reset --mixed <commit-hash> (short: git reset <commit-hash>)` would return you to the commit with the specified commit hash and put all those changes to the `working directory`. If you would run this on your local branch `git reset`, all  the changes from `staging directory` will be moved `working directory`.
 
 `git reset --hard <commit-hash>` would return to the commit of the specified hash and all that commit changes would be discarded. On a local branch `git reset --hard` removes all the files from `staging directory` and `working directory`.
+
 
 ### `git revert`
 
