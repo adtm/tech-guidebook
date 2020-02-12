@@ -1,61 +1,60 @@
 
-`jwt` - JSON Web Token
+### `jwt - JSON Web Token`
 
-### `jwt structure`
+JWT's are tokens, which are used to transfer information between multiple parties, f.e the client and the server. They are an stateless alternative for session tokens, which are stored in the server. Having the benefit of not needing to worry about distributed system questions, in memory caches, single point of failures.
 
-JWT is an open standard for transmitting information as JSON object between two parties. The information can be securely decrypted because it is digitally signed.
+## `JWT structure`
 
+The token consists of `3` main parts:
+```python
+1. Header
+2. Payload
+3. Signature
+
+# raw form
+header.payload.signature
 ```
-    header.payload.signature
-```
 
-`JOSE Header`
-The header has metadata about the encryption operations which are applied to the whole JWT token. For example, it can describe the algorithm which is used to encrypt the token.
+### `header`
 
-```
-<!-- Header -->
+The `header` or `JOSE header` stores the metadata about the used encryption algorithm, token expiration, key identifier for which key was used in hashing the signature. This information is used for decypting the `signature` in the `JWT`. Of course, the secret / private keys must be stored securely by oneself.
+ 
+```python
 {
-  "alg": "HS256", // the algorithm used
-  "typ": "JWT"
-}
-
-(base64Url - compressed without spaces)
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  "alg": "HS256"
+  "typ": "JWT",
+  "exp": 1581508843,
+  "iat": 1581502642,
+  "iss": "site.service"
+} 
 ```
 
-The header can contain other claims (key-value parameters), but the most common ones are `listed below`.
-A side note, you can have the `alg: "none"` which would tell that the JWT token is not encrypted by any algorithm, thus being able to be decrypted.
+### `payload`
+In the payload the information you want to transfer is stored. It can be `roles`, `userId` or anything you want. This information is visible to everyone, therefore you shouldn't store sensitive information.
 
-```
-{
-    "exp": timestamp // expiration
-    "iat": timestamp // issued
-    "iss": string // issuer
-}
-```
-
-`Payload`
-The payload is the part where usually user specific information is stored.
-
-```
-<!-- Payload -->
+```python
 {
   "sub": "1234567890",
   "name": "John Doe",
   "admin": true
 }
-
-(base64Url - compressed without spaces)
-eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 ```
 
-`Signature`
+### `signature`
 
-```
-<!-- Signature -->
+The signature is the guarantee that the information in the payload has not been tampered with. In the server, where we check the `authenticity` of the `JWT` token we do the following operations:
 
-data = base64UrlEncoder(header) + '.' + base64UrlEncoder(payload)
-signature = hashFunction(data, secret)
 
+```python
+ secret = "<-- your secret from a file or server -->"
+
+ # or other specified "alg"
+ expectedSignature = HMAC256(
+    base64(header) + "." + base64(payload),
+    secret
+ )
+
+ return expectedSignature == signature
 ```
  
+The main idea is that the information in the `payload` is encrypted in the `signature`. Therefore when checking if the `JWT` is valid, we check with the signature. If let's say you change the `payload` in the token, it will become in valid, because this change doesn't propogate to the `signature` which has the correct information.`
