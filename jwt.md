@@ -58,3 +58,11 @@ The signature is the guarantee that the information in the payload has not been 
 ```
  
 The main idea is that the information in the `payload` is encrypted in the `signature`. Therefore when checking if the `JWT` is valid, we check with the signature. If let's say you change the `payload` in the token, it will become in valid, because this change doesn't propogate to the `signature` which has the correct information.`
+
+## `Purpose`
+
+The main purpose of `session tokens` and `JWT's` is an opportunity to send data to the server without being affaid of someone tampering with it. If you would plainly send a `userId` to the server, anyone could just change the `userId` and make the same request, receiving information.
+
+The `JWT` are more commonly used nowadays, as there are less problems with the implementations. Like mentioned, various in memory caches where the token must be stored, availability and partition tolerance. 
+
+Of course, if one would like to `blacklist` access to a specific token or to all of them, some state is required. Therefore having state is not a bad thing, it just adds extra complexity to the system.
