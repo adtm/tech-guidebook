@@ -73,6 +73,8 @@ which indicates that your changes are in the `working directory`. After `git che
 
 `git reset --hard <commit-hash>` would return to the commit of the specified hash and all that commit changes would be discarded. On a local branch `git reset --hard` removes all the files from `staging directory` and `working directory`.
 
+Also, you can `reset` specific files from your `staging directory` to the `working directory`. This would be `git reset -- <file-path>`.
+
 
 ### `git revert`
 
