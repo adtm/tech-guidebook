@@ -64,11 +64,10 @@ As you probably understood, having `symmetric encryption` is not a safe solution
 Client ------------------ Server
   X          --> #1         X
              <-- #2
-
-#1. The client sends the supported versions of `SSL and TLS` + supported versions of ciphers (RSA, AES or etc). The server decides which cipher and version of TLS to use. If there are none which are supported, a failure is returned.
-
-#2. The server send his SSL certificate, which is signed by a authorized CA, chosen cipher and TLS version.
 ```
+`#1.` The client sends the supported versions of `SSL and TLS` + supported versions of ciphers (RSA, AES or etc). The server decides which cipher and version of TLS to use. If there are none which are supported, a failure is returned.
+
+`#2.` The server send his SSL certificate, which is signed by a authorized CA, chosen cipher and TLS version.
 
 #### `SSL Certificates`
 
@@ -80,13 +79,12 @@ Client ------------------ Server
              <-- #2
              --> #3
                            (#4)
-
-#3. the client confirms that the ssl certificate is trustworthy. This is done by decrypting it with the CA authorities public key and checking the domain name an other information.
-
-# Also, the client generates a pre-master key (not getting into the details), which is signed by the servers public key.
-
-#4. Because the pre-master key was signed by the public key of the server, only the private key and decrypt it. After doing so, the client and the server now have a shared key which is used to encrypt and decrypt all the communication.
 ```
+`#3.` the client confirms that the ssl certificate is trustworthy. This is done by decrypting it with the CA authorities public key and checking the domain name an other information.
+Also, the client generates a pre-master key (not getting into the details), which is signed by the servers public key.
 
-#### P.S Have in mind TLS 1.3 works differently by having less roundtips
-#### P.P.S This is a generic explanation to have an understanding how data travels without digging into many technical details.
+`#4.` Because the pre-master key was signed by the public key of the server, only the private key and decrypt it. After doing so, the client and the server now have a shared key which is used to encrypt and decrypt all the communication.
+
+---
+##### `P.S Have in mind TLS 1.3 works differently by having less roundtips`
+##### `P.P.S This is a generic explanation to have an understanding how data travels without digging into many technical details.`
